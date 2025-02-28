@@ -1,0 +1,215 @@
+/* Navbar with Enhanced Glassmorphism */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 30px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+  border-radius: 12px;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.25);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Logo Styling */
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 22px;
+  gap: 10px;
+  text-transform: uppercase;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Dark Mode Logo */
+.dark .logo {
+  color: white;
+}
+
+/* Light Mode Logo */
+.light .logo {
+  color: #222; /* Improved contrast */
+}
+
+/* Search Container */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Search Input */
+.search-input {
+  background-color: white;
+  border-radius: 2rem;
+  width: 22rem;
+  border: none;
+  padding: 10px 15px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Suggestions Dropdown */
+.suggestions-box {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  list-style: none;
+  padding: 5px 0;
+  margin-top: 5px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.suggestions-box.light {
+  background: white;
+  color: black;
+}
+
+.suggestions-box.dark {
+  background: #333;
+  color: white;
+}
+
+.suggestions-box li {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.suggestions-box li:hover,
+.suggestions-box li.active {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.suggestions-box.dark li:hover,
+.suggestions-box.dark li.active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Search Button */
+.search-btn {
+  border-radius: 8px;
+  background-color: #4B5550 !important;
+  margin-left: 8px;
+  color: white;
+  padding: 10px 16px;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.search-btn:hover {
+  background-color: #3a4742 !important;
+  transform: translateY(-2px);
+}
+
+/* Buttons Container */
+.button-container {
+  display: flex;
+  gap: 12px;
+}
+
+/* Glassmorphism Action Buttons */
+.action-btn {
+  background: rgba(75, 85, 80, 0.85);
+  color: white;
+  font-weight: 700;
+  height: 44px;
+  min-width: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  border: none;
+  outline: none;
+  padding: 10px 14px;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* Light Mode Buttons */
+.light .action-btn {
+  background: rgba(0, 0, 0, 0.1);
+  color: #222;
+}
+
+/* Hover Effect */
+.action-btn:hover {
+  background: rgba(75, 85, 80, 1);
+  transform: translateY(-2px);
+}
+
+/* Light Mode Hover */
+.light .action-btn:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Disabled State */
+.action-btn.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Dark & Light Mode Effects */
+body.dark-mode {
+  background-color: #161616;
+  color: #ffffff;
+}
+
+body.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Navbar Styling for Themes */
+.navbar.dark {
+  background: rgba(40, 40, 40, 0.9);
+  backdrop-filter: blur(18px);
+}
+
+.navbar.light {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(18px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+      flex-direction: column;
+      gap: 15px;
+      padding: 16px;
+  }
+
+  .search-container {
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .search-input {
+      width: 100%;
+  }
+
+  .button-container {
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+  }
+
+  .action-btn {
+      width: 100%;
+  }
+}
