@@ -28,15 +28,15 @@ const Navbar = ({ onSearch, loading }) => {
 
   const handleSearch = () => {
     if (searchCity.trim()) {
-      onSearch(searchCity.split(",")[0]); // Trigger search
-      setSuggestions([]); // Close suggestions after search
+      onSearch(searchCity.split(",")[0]);
+      setSuggestions([]);
     }
   };
 
   const handleInputChange = async (e) => {
     const input = e.target.value;
     setSearchCity(input);
-    setSelectedIndex(-1); // Reset index
+    setSelectedIndex(-1);
 
     if (input.length > 1) {
       try {
@@ -58,8 +58,8 @@ const Navbar = ({ onSearch, loading }) => {
 
   const handleSuggestionClick = (city) => {
     setSearchCity(city);
-    setSuggestions([]); // Close suggestions
-    onSearch(city.split(",")[0]); // Trigger search
+    setSuggestions([]);
+    onSearch(city.split(",")[0]);
   };
 
   const handleKeyDown = (e) => {
@@ -69,11 +69,46 @@ const Navbar = ({ onSearch, loading }) => {
       setSelectedIndex(selectedIndex - 1);
     } else if (e.key === "Enter") {
       if (selectedIndex >= 0) {
-        // Select highlighted suggestion
         handleSuggestionClick(suggestions[selectedIndex]);
       } else {
-        // Search with manually entered city
         handleSearch();
+      }
+    }
+  };
+
+  // 🔹 FIXED: Get User's Current Location and Fetch Weather Data
+  const handleCurrentLocation = () => {
+    if (!loading) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+
+            try {
+              // 🔸 Reverse Geocoding: Get City Name from Lat & Long
+              const response = await axios.get(
+                `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`
+              );
+
+              if (response.data.length > 0) {
+                const cityName = response.data[0].name;
+                setSearchCity(cityName);
+                onSearch(cityName);
+              } else {
+                alert("Location not found. Try searching manually.");
+              }
+            } catch (error) {
+              console.error("Error fetching location data:", error);
+              alert("Could not fetch location. Please try again.");
+            }
+          },
+          (error) => {
+            console.error("Geolocation Error:", error);
+            alert("Please enable location access in your browser settings.");
+          }
+        );
+      } else {
+        alert("Geolocation is not supported by your browser.");
       }
     }
   };
@@ -134,12 +169,7 @@ const Navbar = ({ onSearch, loading }) => {
         {/* Current Location Button */}
         <button
           className={`action-btn location-btn ${loading ? "disabled" : ""}`}
-          onClick={() => {
-            if (!loading) {
-              onSearch("currentLocation");
-              setSuggestions([]); // Close suggestions
-            }
-          }}
+          onClick={handleCurrentLocation}
         >
           <GpsFixedIcon />
           <span>Current Location</span>
