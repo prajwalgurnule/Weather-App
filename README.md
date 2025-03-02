@@ -13,9 +13,8 @@ The **Weather App** is a modern, user-friendly web application that provides rea
 - 📱 **Responsive Design for All Devices**
 
 ## 🛠️ Tech Stack
-- **Frontend:** React, Material-UI, Axios
+- **Frontend:** React.js, Axios (for API calls), Tailwind CSS
 - **API:** OpenWeatherMap API
-- **Animations:** Lottie
 
 ## 🎥 Demo
 Check out a live demo: **[Click Here](https://weather-app-three-self-29.vercel.app/)** *(Replace with your deployed link)*
